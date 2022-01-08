@@ -1,7 +1,5 @@
 """
 Abedin Sherifi
-RBE595
-09/25/2020
 """
 
 """
