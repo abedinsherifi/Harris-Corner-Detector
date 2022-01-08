@@ -25,28 +25,26 @@ The Harris Corner Detector algorithm was applied to a picture. A brief overview 
 
 OpenCV libraries were used throughout the code. Lastly, a corner count is displayed on the image. <br>
 The output file from running the Harris Code Detector is shown below: <br>
+![](images/Harris_Corners.png) <br>
 
+## Keypoint and Descriptor Generator for Image Stitching
+The steps involved in stitching were the following: <br>
+→ First step is the input of an image and converting that image from RGB to GRAY. <br>
+→ The second step computes the descriptors and keypoints on both images using SIFT.<br>
+→ The third step uses the FLANN method for matching the most similar descriptors from both images. <br>
+→ The next step applied is filtering of only the best matches with shorted distance ratio. <br>
+→ Next, RANSAC is run and estimated homography is computed and image alignment performed. <br>
+→ The last step of this code is image wrapping and the stitching of the images. <br>
 
-## ORB Detector
-One of the first algorithms used was the ORB detector. One of the tasks within SLAM is the localization of landmarks in our environment. The ORB detector is a very good detector in localizing such landmarks. The ORB detector is a very fast and accurate detector which is based out of the FAST algorithm for keypoint detection and on the BRIEF algorithm for calculation of descriptors. Once keypoints are located on a frame, descriptors are matched from the current frame
-to the previous frame using the Brute Force matcher. <br>
+The image below depicts the SIFT keypoints on an image. <br>
+![](images/orig_img_lft_keypnts.jpg) <br>
 
-## Point Cloud
-I also presented the camera positions and the landmarks in a point cloud. What is a point cloud? A point cloud is a set of data points in 3D space. The 3D point cloud will consist of landmark data points as well as camera position points. Multiple frames are run in order to get depth information in 2D which assists in displaying the point cloud in 3D. <br>
+The image below depicts the stitching product on two images: <br>
+![](images/Stitched_Image.jpg) <br>
 
-## Camera Position
-One of the main tasks in Mono SLAM is to figure out the camera position. The camera angle could change frame to frame. One of the ways to figure this out is through the fundamental matrix. The fundamental matrix is used for uncalibrated cameras. The essential matrix is essentially the same thing but is used for calibrated cameras. The fundamental matrix is calculated through the use of the 8-point algorithm. The 8-point algorithm as the name suggests takes in 8 correspondence points and outputs a homogeneous linear equation. The fundamental matrix was computed through
-cv2.findFundamentalMat function of opencv. <br>
+## Harris Corner Detection On Video
+I took a video with my webcam and applied the Harris Corner Detector per frame. The same steps are applicable to this code as they were for the Harris Corner Detector. The only difference here is that we capture webcam frame by frame. We apply the Harris Corner Detector on each frame and we also display the corner count and the corners themselves for each frame on the video. We record a video using webcam at 30 fps and then we output a video with the Harris Corners and the count at 10 fps. <br>
 
-## Camera Info
-Camera has two characteristics. It has intrinsic and extrinsic parameters. One of the main matrices is the intrinsic matrix. The intrinsic matrix is made of the image size and the focal length of the camera. My camera focal length is equal to 339. The extrinsic matrix consists of the rotation matrix and the translation vector. The camera matrix is the multiplication of the intrinsic matrix and the extrinsic matrix. The rotation and translation matrices are calculated through the use of the recoverPose function in opencv. Initially we are going to get 2D points. In order to go from 2D point to 3D point, we need to multiple the camera matrix with the 2D point at time t. <br>
+A video of this can be found [*here*](https://github.com/abedinsherifi/Harris-Corner-Detector/blob/main/images/Harris_Corner_Detection_Video.mp4). <br>
 
-## Results
-A snapshot of the 3D point cloud of landmarks and camera positions as well as ORB detector keypoints on the video capture and camera position points are given in the image below. <br>
-![](images/MonoSLAMCamPos.png) <br>
-
-![](images/MonoSLAM1.png) <br>
-
-![](images/MonoSLAMCloud.png) <br>
-
-https://abedinsherifi.github.io/Mono-SLAM/
+https://abedinsherifi.github.io/Harris-Corner-Detector/
